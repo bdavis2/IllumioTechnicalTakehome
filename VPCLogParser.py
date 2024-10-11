@@ -93,7 +93,7 @@ if __name__ == '__main__':
     )
     parser.add_argument('logfile')
     parser.add_argument('lookup_table')
-    parser.add_argument('--output', default="output.txt", required=False)
+    parser.add_argument('--output', default="example_output.txt", required=False)
     args = parser.parse_args()
     with open(args.output, 'w') as out, open(args.lookup_table, 'r') as lookup, open(args.logfile) as log, open(
             "res/protocol-numbers-1.csv") as protocol:
