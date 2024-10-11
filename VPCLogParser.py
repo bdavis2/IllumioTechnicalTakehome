@@ -73,11 +73,11 @@ def parse_flow_log(flow_log_lines: list, lookup_dict: dict, protocol_dict: dict)
     # dict of {(port, protocol): count}
     port_protocol_combo_counts = dict()
     # gather list of fields from first line of file
-    fields = flow_log_lines[0].replace("\n", "").split(",")
+    fields = flow_log_lines[0].replace("\n", "").lower().split(",")
     assert("dstport" in fields and "protocol" in fields and "log-status" in fields)
     flow_log_lines = flow_log_lines[1:]
     for i in flow_log_lines:
-        line = FlowLogLine(fields, *i.replace("\n", "").split(","))
+        line = FlowLogLine(fields, *i.replace("\n", "").lower().split(","))
         if line.log_status == "NODATA" or line.log_status == "SKIPDATA":
             continue
         tag_count_dict = update_tag_counts(tag_count_dict, line, lookup_dict)
@@ -98,8 +98,8 @@ if __name__ == '__main__':
     with open(args.output, 'w') as out, open(args.lookup_table, 'r') as lookup, open(args.logfile) as log, open(
             "res/protocol-numbers-1.csv") as protocol:
 
-        lookup_table = LookupTable([LookupTableRow(i.replace("\n", "").split(",")) for i in lookup.readlines()[1:]])
-        protocol_table = ProtocolTable([ProtocolTableRow(i.replace("\n", "").split(",")) for i in protocol.readlines()[1:]])
+        lookup_table = LookupTable([LookupTableRow(i.replace("\n", "").lower().split(",")) for i in lookup.readlines()[1:]])
+        protocol_table = ProtocolTable([ProtocolTableRow(i.replace("\n", "").lower().split(",")) for i in protocol.readlines()[1:]])
         tag_counts, ppc_counts = parse_flow_log(log.readlines(), lookup_table.table, protocol_table.table)
 
         lookup.close()
