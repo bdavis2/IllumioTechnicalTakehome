@@ -8,7 +8,7 @@ Python version 3.10.x
 
 # Assumptions made:
 1. log files are .txt files. Technically VPC log files can also be in .parquet format, but since we aren't allowed to use any non-default libraries, processing .parquet files is out of scope of the project.
-2. log files have columns at the top and are seperated by commas. this code supports any log file format as long as it contains the columns: `dstport`, `protocol`, and `log-status`. It will fail due to an assertion error otherwise.
+2. log files have columns at the top and are seperated by commas. The logs themselves are space-separated. this code supports any log file format as long as it contains the columns: `dstport`, `protocol`, and `log-status`. It will fail due to an assertion error otherwise.
 
 # Testing:
 this code was tested on the sample flow logs and lookup table provided in the assessment email, which are located in the `res/` folder as examples. The output was compared to the example output in the email as well. An example output is located in the `res/` folder.  

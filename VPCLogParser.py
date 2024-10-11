@@ -77,7 +77,7 @@ def parse_flow_log(flow_log_lines: list, lookup_dict: dict, protocol_dict: dict)
     assert("dstport" in fields and "protocol" in fields and "log-status" in fields)
     flow_log_lines = flow_log_lines[1:]
     for i in flow_log_lines:
-        line = FlowLogLine(fields, *i.replace("\n", "").lower().split(","))
+        line = FlowLogLine(fields, *i.replace("\n", "").lower().split(" "))
         if line.log_status == "NODATA" or line.log_status == "SKIPDATA":
             continue
         tag_count_dict = update_tag_counts(tag_count_dict, line, lookup_dict)
